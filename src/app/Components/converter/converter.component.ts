@@ -8,14 +8,18 @@ import {
     ValidatorFn
 } from "@angular/forms";
 import {JsonReadingStrategy, JsonWritingStrategy} from "../../Parsers/Json/JsonStrategy";
-import {Reader} from "../../Parsers/Reader";
-import {Writer} from "../../Parsers/Writer";
+import {Reader, ReadingStrategy} from "../../Parsers/Reader";
+import {Writer, WritingStrategy} from "../../Parsers/Writer";
+import {getReadStrategy, getWriteStrategy, Strategies} from "../../Parsers/Strategies";
+import {KeyValuePipe, NgForOf} from "@angular/common";
 
 @Component({
     selector: 'app-converter',
     standalone: true,
     imports: [
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgForOf,
+        KeyValuePipe
     ],
     templateUrl: './converter.component.html',
     styleUrl: './converter.component.css'
@@ -23,16 +27,23 @@ import {Writer} from "../../Parsers/Writer";
 export class ConverterComponent {
     constructor() {
         this.converterForm = new FormGroup({
-            inputType: new FormControl('', {nonNullable: true}),
+            inputType: new FormControl<ReadingStrategy>(
+                getReadStrategy(this.defaultStrategy),
+                {nonNullable: true}),
             input: new FormControl<string>('', {
                 nonNullable: true,
                 validators: [this.inputValidator]
             },),
-            outputType: new FormControl('', {nonNullable: true}),
+            outputType: new FormControl<WritingStrategy>(
+                getWriteStrategy(this.defaultStrategy),
+                {nonNullable: true}),
         })
     }
 
+    defaultStrategy = Strategies.Json
     converterForm: FormGroup
+    strategies = Strategies
+
 
     output = ""
     reader: Reader = new Reader(new JsonReadingStrategy())
@@ -47,9 +58,10 @@ export class ConverterComponent {
         if (!input) {
             return {input: 'input is null'}
         }
-        if (!this.reader.getStrategy().isValid(input)) {
+        if (!this.reader.isValid(input)) {
             return {input: 'input is not valid'}
         }
         return null
     }
+    protected readonly getReadStrategy = getReadStrategy;
 }

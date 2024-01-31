@@ -18,14 +18,6 @@ export class Reader {
         this.strategy = strategy;
     }
 
-    public setStrategy(strategy: ReadingStrategy) {
-        this.strategy = strategy;
-    }
-
-    public getStrategy(): ReadingStrategy {
-        return this.strategy;
-    }
-
     public isValid(str: string): boolean {
         return this.strategy.isValid(str);
     }
