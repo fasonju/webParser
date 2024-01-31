@@ -1,14 +1,20 @@
 <form [formGroup]="converterForm" (ngSubmit)="convert()">
     <label for="input-type">Input type</label>
-    <select id="input-type" formArrayName="inputType">
+    <select id="input-type" formArrayName="inputType" (change)="onReadStrategyChange()">
         <option *ngFor="let strategy of strategies | keyvalue"
-                [ngValue]="getReadStrategy(strategy.value)">{{ strategy.key }}
+                [ngValue]="getReadStrategy(strategy.value)">
+            {{ strategy.key }}
         </option>
     </select>
     <label for="input">Input</label>
     <input id="input" type="text" formControlName="input">
     <label for="output-type">Output type</label>
-    <select id="output-type" formArrayName="outputType"></select>
+    <select id="output-type" formArrayName="outputType" (change)="onWriteStrategyChange()">
+        <option *ngFor="let strategy of strategies | keyvalue"
+                [ngValue]="getWriteStrategy(strategy.value)">
+            {{ strategy.key }}
+        </option>
+    </select>
     <button type="submit" [disabled]="!converterForm.valid">submit</button>
 </form>
 

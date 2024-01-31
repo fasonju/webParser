@@ -22,6 +22,10 @@ export class Reader {
         return this.strategy.isValid(str);
     }
 
+    setStrategy(strategy: ReadingStrategy) {
+        this.strategy = strategy;
+    }
+
     public read(str: string): object {
         return this.strategy.read(str);
     }

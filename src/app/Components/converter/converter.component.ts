@@ -7,7 +7,6 @@ import {
     ValidationErrors,
     ValidatorFn
 } from "@angular/forms";
-import {JsonReadingStrategy, JsonWritingStrategy} from "../../Parsers/Json/JsonStrategy";
 import {Reader, ReadingStrategy} from "../../Parsers/Reader";
 import {Writer, WritingStrategy} from "../../Parsers/Writer";
 import {getReadStrategy, getWriteStrategy, Strategies} from "../../Parsers/Strategies";
@@ -26,7 +25,13 @@ import {KeyValuePipe, NgForOf} from "@angular/common";
 })
 export class ConverterComponent {
     constructor() {
-        this.converterForm = new FormGroup({
+        this.converterForm = this.createForm();
+        this.reader = new Reader(getReadStrategy(this.defaultStrategy))
+        this.writer = new Writer(getWriteStrategy(this.defaultStrategy))
+    }
+
+    private createForm() {
+        return new FormGroup({
             inputType: new FormControl<ReadingStrategy>(
                 getReadStrategy(this.defaultStrategy),
                 {nonNullable: true}),
@@ -40,14 +45,24 @@ export class ConverterComponent {
         })
     }
 
+    protected readonly getReadStrategy = getReadStrategy;
     defaultStrategy = Strategies.Json
     converterForm: FormGroup
     strategies = Strategies
-
-
     output = ""
-    reader: Reader = new Reader(new JsonReadingStrategy())
-    writer: Writer = new Writer(new JsonWritingStrategy())
+    reader: Reader
+    writer: Writer
+
+    onReadStrategyChange() {
+        const readStrategy = this.converterForm.value.inputType
+        this.reader.setStrategy(readStrategy)
+
+    }
+
+    onWriteStrategyChange() {
+        const strategy = this.converterForm.value.outputType
+        this.writer.setStrategy(strategy)
+    }
 
     convert() {
         return this.writer.parse(this.reader.read(this.converterForm.value.input))
@@ -63,5 +78,5 @@ export class ConverterComponent {
         }
         return null
     }
-    protected readonly getReadStrategy = getReadStrategy;
+    protected readonly getWriteStrategy = getWriteStrategy;
 }
