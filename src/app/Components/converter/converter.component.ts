@@ -24,7 +24,10 @@ export class ConverterComponent {
     constructor() {
         this.converterForm = new FormGroup({
             inputType: new FormControl('', {nonNullable: true}),
-            input: new FormControl<string>('', {nonNullable: true}),
+            input: new FormControl<string>('', {
+                nonNullable: true,
+                validators: [this.inputValidator]
+            },),
             outputType: new FormControl('', {nonNullable: true}),
         })
     }
