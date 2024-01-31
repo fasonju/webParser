@@ -46,6 +46,7 @@ export class ConverterComponent {
     }
 
     protected readonly getReadStrategy = getReadStrategy;
+    protected readonly getWriteStrategy = getWriteStrategy;
     defaultStrategy = Strategies.Json
     converterForm: FormGroup
     strategies = Strategies
@@ -65,18 +66,19 @@ export class ConverterComponent {
     }
 
     convert() {
-        return this.writer.parse(this.reader.read(this.converterForm.value.input))
+        this.output = this.writer.parse(this.reader.read(this.converterForm.value.input))
     }
 
     inputValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-        const input = control.get('input')?.value
-        if (!input) {
-            return {input: 'input is null'}
+        const input = control.value
+
+        if (input === '') {
+            return {input: 'input is empty'}
         }
+
         if (!this.reader.isValid(input)) {
             return {input: 'input is not valid'}
         }
         return null
     }
-    protected readonly getWriteStrategy = getWriteStrategy;
 }
