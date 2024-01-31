@@ -1,0 +1,11 @@
+<form [formGroup]="converterForm" (ngSubmit)="convert()">
+    <label for="input-type">Input type</label>
+    <select id="input-type" formArrayName="inputType"></select>
+    <label for="input">Input</label>
+    <input id="input" type="text" formControlName="input">
+    <label for="output-type">Output type</label>
+    <select id="output-type" formArrayName="outputType"></select>
+    <button type="submit" [disabled]="!converterForm.valid"></button>
+</form>
+
+{{ output }}

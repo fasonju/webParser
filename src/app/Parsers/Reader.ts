@@ -1,5 +1,7 @@
 export interface readingStrategy {
     read(str: string): object;
+
+    isValid(str: string): boolean;
 }
 
 /**
@@ -14,6 +16,18 @@ export class Reader {
 
     constructor(strategy: readingStrategy) {
         this.strategy = strategy;
+    }
+
+    public setStrategy(strategy: readingStrategy) {
+        this.strategy = strategy;
+    }
+
+    public getStrategy(): readingStrategy {
+        return this.strategy;
+    }
+
+    public isValid(str: string): boolean {
+        return this.strategy.isValid(str);
     }
 
     public read(str: string): object {

@@ -17,6 +17,14 @@ export class Writer {
         this.strategy = strategy;
     }
 
+    setStrategy(strategy: WritingStrategy) {
+        this.strategy = strategy;
+    }
+
+    getStrategy(): WritingStrategy {
+        return this.strategy;
+    }
+
     public parse(o: object): string {
         return this.strategy.parse(o);
     }
