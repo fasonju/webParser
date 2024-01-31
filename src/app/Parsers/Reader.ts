@@ -1,4 +1,4 @@
-export interface readingStrategy {
+export interface ReadingStrategy {
     read(str: string): object;
 
     isValid(str: string): boolean;
@@ -12,17 +12,17 @@ export interface readingStrategy {
  */
 export class Reader {
 
-    private strategy: readingStrategy;
+    private strategy: ReadingStrategy;
 
-    constructor(strategy: readingStrategy) {
+    constructor(strategy: ReadingStrategy) {
         this.strategy = strategy;
     }
 
-    public setStrategy(strategy: readingStrategy) {
+    public setStrategy(strategy: ReadingStrategy) {
         this.strategy = strategy;
     }
 
-    public getStrategy(): readingStrategy {
+    public getStrategy(): ReadingStrategy {
         return this.strategy;
     }
 
