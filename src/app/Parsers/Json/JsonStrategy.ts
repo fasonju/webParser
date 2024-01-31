@@ -1,7 +1,5 @@
 import {WritingStrategy} from "../Writer";
-
-interface ReadingStrategy {
-}
+import {ReadingStrategy} from "../Reader";
 
 export class JsonReadingStrategy implements ReadingStrategy {
     read(str: string): object {
