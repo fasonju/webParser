@@ -1,21 +1,28 @@
 <form [formGroup]="converterForm" (ngSubmit)="convert()">
-    <label for="input-type">Input type</label>
-    <select id="input-type" formArrayName="inputType" (change)="onReadStrategyChange()">
-        <option *ngFor="let strategy of strategies | keyvalue"
-                [ngValue]="getReadStrategy(strategy.value)">
-            {{ strategy.key }}
-        </option>
-    </select>
-    <label for="input">Input</label>
-    <input id="input" type="text" formControlName="input">
-    <label for="output-type">Output type</label>
-    <select id="output-type" formArrayName="outputType" (change)="onWriteStrategyChange()">
-        <option *ngFor="let strategy of strategies | keyvalue"
-                [ngValue]="getWriteStrategy(strategy.value)">
-            {{ strategy.key }}
-        </option>
-    </select>
-    <button type="submit" [disabled]="!converterForm.valid">submit</button>
-</form>
+    <div class="flex">
+        <div class="flex flex-col">
+            <label for="input-type">Input type</label>
+            <select id="input-type" formArrayName="inputType" (change)="onReadStrategyChange()">
+                <option *ngFor="let strategy of strategies | keyvalue"
+                        [ngValue]="getReadStrategy(strategy.value)">
+                    {{ strategy.key }}
+                </option>
+            </select>
+            <label for="input">Input</label>
+            <input id="input" type="text" class="outline-1" formControlName="input">
+        </div>
 
-{{ output }}
+        <div class="flex flex-col">
+            <label for="output-type">Output type</label>
+            <select id="output-type" formArrayName="outputType" (change)="onWriteStrategyChange()">
+                <option *ngFor="let strategy of strategies | keyvalue"
+                        [ngValue]="getWriteStrategy(strategy.value)">
+                    {{ strategy.key }}
+                </option>
+            </select>
+            <label for="output">Output</label>
+            <input readonly id="output" type="text" class="outline-1" formControlName="output">
+        </div>
+    </div>
+    <button type="submit" [disabled]="converterForm.invalid">Convert</button>
+</form>
