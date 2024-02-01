@@ -1,7 +1,7 @@
 import {ReadingStrategy} from "../Reader";
 import {WritingStrategy} from "../Writer";
 
-export class TOMLReadingStrategy implements ReadingStrategy {
+export class XMLReadingStrategy implements ReadingStrategy {
     read(str: string): object {
         throw new Error("Method not implemented.");
     }
@@ -11,7 +11,7 @@ export class TOMLReadingStrategy implements ReadingStrategy {
     }
 }
 
-export class TOMLWritingStrategy implements WritingStrategy {
+export class XMLWritingStrategy implements WritingStrategy {
     parse(o: object): string {
         throw new Error("Method not implemented.");
     }
