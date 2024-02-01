@@ -42,6 +42,7 @@ export class ConverterComponent {
             outputType: new FormControl<WritingStrategy>(
                 getWriteStrategy(this.defaultStrategy),
                 {nonNullable: true}),
+            output: new FormControl<string>('',)
         })
     }
 
@@ -50,7 +51,6 @@ export class ConverterComponent {
     defaultStrategy = Strategies.Json
     converterForm: FormGroup
     strategies = Strategies
-    output = ""
     reader: Reader
     writer: Writer
 
@@ -66,7 +66,13 @@ export class ConverterComponent {
     }
 
     convert() {
-        this.output = this.writer.parse(this.reader.read(this.converterForm.value.input))
+        this.converterForm.get("output")?.setValue(
+            this.writer.parse(this.reader.read(this.converterForm.value.input))
+        )
+    }
+
+    clearOutput() {
+        this.converterForm.get("output")?.setValue('')
     }
 
     inputValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {

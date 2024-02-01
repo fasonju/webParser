@@ -1,6 +1,8 @@
 import {JsonReadingStrategy, JsonWritingStrategy} from "./Json/JsonStrategy";
 import {ReadingStrategy} from "./Reader";
 import {WritingStrategy} from "./Writer";
+import {TOMLReadingStrategy, TOMLWritingStrategy} from "./TOML/TOMLStrategy";
+import {XMLReadingStrategy, XMLWritingStrategy} from "./XML/XMLStrategy";
 
 export enum Strategies {
     Json = "Json",
@@ -14,9 +16,9 @@ export function getReadStrategy(strategy: Strategies): ReadingStrategy {
         case Strategies.Json:
             return new JsonReadingStrategy();
         case Strategies.TOML:
-            throw new Error("TOML not implemented yet");
+            return new TOMLReadingStrategy();
         case Strategies.XML:
-            throw new Error("XML not implemented yet");
+            return new XMLReadingStrategy();
         default:
             throw new Error("Invalid strategy");
     }
@@ -27,9 +29,9 @@ export function getWriteStrategy(strategy: Strategies): WritingStrategy {
         case Strategies.Json:
             return new JsonWritingStrategy();
         case Strategies.TOML:
-            throw new Error("TOML not implemented yet");
+            return new TOMLWritingStrategy();
         case Strategies.XML:
-            throw new Error("XML not implemented yet");
+            return new XMLWritingStrategy();
         default:
             throw new Error("Invalid strategy");
     }
