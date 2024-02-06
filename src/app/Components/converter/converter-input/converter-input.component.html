@@ -1,6 +1,6 @@
 <div class="flex flex-col w-1/2">
     <label for="input-type">Input type</label>
-    <select id="input-type" [ngModel]="selectedStrategy"
+    <select id="input-type" [(ngModel)]="selectedStrategy"
             (change)="onReadingStrategyChanged(selectedStrategy)">
         <option
             *ngFor="let strategy of readingStrategies | keyvalue"

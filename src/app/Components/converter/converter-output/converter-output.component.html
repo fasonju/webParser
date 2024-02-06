@@ -1,0 +1,14 @@
+<div class="flex flex-col w-1/2">
+    <label for="output-type">Input type</label>
+    <select id="output-type" [(ngModel)]="selectedStrategy"
+            (change)="onWritingStrategyChanged(selectedStrategy)">
+        <option
+            *ngFor="let strategy of writingStrategies | keyvalue"
+            [ngValue]="strategy.value">
+            {{ strategy.key }}
+        </option>
+    </select>
+    <label for="input">Input</label>
+    <textarea id="input" class="h-full" readonly>
+    </textarea>
+</div>
