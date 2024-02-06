@@ -30,3 +30,22 @@ it('should parse Json and print the exact same Json', () => {
                 .replaceAll('\n', '')
         )
 })
+
+it('should detect that the input is valid Json', () => {
+    const json = '{"a": 1, "b": 2}'
+    const reader = new Reader(new JsonReadingStrategy())
+
+    expect(
+        reader.isValid(json))
+        .toEqual(true)
+})
+
+it('should detect that the input is not valid Json', () => {
+    const json = '{"a": 1, "b": 2'
+    const reader = new Reader(new JsonReadingStrategy())
+
+    expect(
+        reader.isValid(json))
+        .toEqual(false)
+    
+})
