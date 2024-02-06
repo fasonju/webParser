@@ -19,13 +19,43 @@ import {WritingStrategy} from "../../Parsers/Writer";
     styleUrl: './converter.component.css'
 })
 export class ConverterComponent {
-    inputText = signal("");
-    readingStrategy = signal(ReadingStrategies.Json);
-    writingStrategy = signal(WritingStrategies.Json);
-    readObject = computed(() => {
-        return this.readingStrategy().read(this.inputText())
+    inputText = signal<string>("");
+    readingStrategy = signal<ReadingStrategy>(ReadingStrategies.Json);
+    writingStrategy = signal<WritingStrategy>(WritingStrategies.Json);
+    readObject = computed<Object | SyntaxError>(() => {
+        return this.computeInputObject();
+    })
+    outputText = computed<string>(() => {
+        return this.computeOutputString();
     })
 
+    private computeOutputString() {
+        switch (this.readObject()) {
+            case SyntaxError:
+                return "Invalid input"
+            default:
+                try {
+                    return this.writingStrategy().parse(this.readObject())
+                } catch (e) {
+                    if (e instanceof SyntaxError) {
+                        return "Invalid input"
+                    } else {
+                        return "Unknown error"
+                    }
+                }
+        }
+    }
+
+    private computeInputObject() {
+        try {
+            return this.readingStrategy().read(this.inputText())
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                return e;
+            }
+        }
+        return Error("Unknown error")
+    }
 
     onInputTextChanged($event: string) {
         this.inputText.set($event)
