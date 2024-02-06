@@ -6,22 +6,10 @@ export class JsonReadingStrategy implements ReadingStrategy {
         return JSON.parse(str);
     }
 
-    isValid(str: string): boolean {
-        //TODO add unit test
-        try {
-            let o = JSON.parse(str)
-            if (o && typeof o === "object") {
-                return true
-            }
-        } catch (e) {
-            return false
-        }
-        return false
-    }
 }
 
 export class JsonWritingStrategy implements WritingStrategy {
-    parse(o: object): string {
+    parse(o: object): string | SyntaxError {
         return JSON.stringify(o)
     }
 }

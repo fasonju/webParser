@@ -1,16 +1,7 @@
 import {Component} from '@angular/core';
-import {
-    AbstractControl,
-    FormControl,
-    FormGroup,
-    ReactiveFormsModule,
-    ValidationErrors,
-    ValidatorFn
-} from "@angular/forms";
-import {Reader, ReadingStrategy} from "../../Parsers/Reader";
-import {Writer, WritingStrategy} from "../../Parsers/Writer";
-import {getReadStrategy, getWriteStrategy, Strategies} from "../../Parsers/Strategies";
+import {ReactiveFormsModule} from "@angular/forms";
 import {KeyValuePipe, NgForOf} from "@angular/common";
+import {ConverterInputComponent} from "./converter-input/converter-input.component";
 
 @Component({
     selector: 'app-converter',
@@ -18,73 +9,15 @@ import {KeyValuePipe, NgForOf} from "@angular/common";
     imports: [
         ReactiveFormsModule,
         NgForOf,
-        KeyValuePipe
+        KeyValuePipe,
+        ConverterInputComponent
     ],
     templateUrl: './converter.component.html',
     styleUrl: './converter.component.css'
 })
 export class ConverterComponent {
-    constructor() {
-        this.converterForm = this.createForm();
-        this.reader = new Reader(getReadStrategy(this.defaultStrategy))
-        this.writer = new Writer(getWriteStrategy(this.defaultStrategy))
-    }
 
-    private createForm() {
-        return new FormGroup({
-            inputType: new FormControl<ReadingStrategy>(
-                getReadStrategy(this.defaultStrategy),
-                {nonNullable: true}),
-            input: new FormControl<string>('', {
-                nonNullable: true,
-                validators: [this.inputValidator]
-            },),
-            outputType: new FormControl<WritingStrategy>(
-                getWriteStrategy(this.defaultStrategy),
-                {nonNullable: true}),
-            output: new FormControl<string>('',)
-        })
-    }
-
-    protected readonly getReadStrategy = getReadStrategy;
-    protected readonly getWriteStrategy = getWriteStrategy;
-    defaultStrategy = Strategies.Json
-    converterForm: FormGroup
-    strategies = Strategies
-    reader: Reader
-    writer: Writer
-
-    onReadStrategyChange() {
-        const readStrategy = this.converterForm.value.inputType
-        this.reader.setStrategy(readStrategy)
-
-    }
-
-    onWriteStrategyChange() {
-        const strategy = this.converterForm.value.outputType
-        this.writer.setStrategy(strategy)
-    }
-
-    convert() {
-        this.converterForm.get("output")?.setValue(
-            this.writer.parse(this.reader.read(this.converterForm.value.input))
-        )
-    }
-
-    clearOutput() {
-        this.converterForm.get("output")?.setValue('')
-    }
-
-    inputValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-        const input = control.value
-
-        if (input === '') {
-            return {input: 'input is empty'}
-        }
-
-        if (!this.reader.isValid(input)) {
-            return {input: 'input is not valid'}
-        }
-        return null
+    onParsingAttemptCompleted($event: Object | SyntaxError) {
+        console.log($event);
     }
 }

@@ -1,1 +1,13 @@
-<p>converter-input works!</p>
+<div class="flex flex-col w-1/2">
+    <label for="input-type">Input type</label>
+    <select id="input-type" [(ngModel)]="readingStrategy">
+        <option
+            *ngFor="let strategy of readingStrategies | keyvalue"
+            [value]="strategy.value">
+            {{ strategy.key }}
+        </option>
+    </select>
+    <label for="input">Input</label>
+    <textarea id="input" class="h-full" (input)="onInputChanged($event)">
+    </textarea>
+</div>

@@ -1,32 +1,17 @@
-<form [formGroup]="converterForm" (ngSubmit)="convert()" class="h-4/5">
-    <div class="flex space-x-1 h-full">
-        <div class="flex flex-col w-1/2">
-            <label for="input-type">Input type</label>
-            <select id="input-type" formArrayName="inputType" (change)="onReadStrategyChange()">
-                <option *ngFor="let strategy of strategies | keyvalue"
-                        [ngValue]="getReadStrategy(strategy.value)">
-                    {{ strategy.key }}
-                </option>
-            </select>
-            <label for="input">Input</label>
-            <textarea id="input" type="text" class="h-full" formControlName="input">
+<div class="flex space-x-1 h-full">
+    <app-converter-input (ParsingAttemptCompleted)="onParsingAttemptCompleted($event)"/>
 
-            </textarea>
-        </div>
+    <!--    <div class="flex flex-col w-1/2">-->
+    <!--        <label for="output-type">Output type</label>-->
+    <!--        <select id="output-type" formArrayName="outputType" (change)="onWriteStrategyChange()">-->
+    <!--            <option *ngFor="let strategy of strategies | keyvalue"-->
+    <!--                    [ngValue]="getWriteStrategy(strategy.value)">-->
+    <!--                {{ strategy.key }}-->
+    <!--            </option>-->
+    <!--        </select>-->
+    <!--        <label for="output">Output</label>-->
+    <!--        <textarea readonly id="output" type="text" class="h-full" formControlName="output">-->
 
-        <div class="flex flex-col w-1/2">
-            <label for="output-type">Output type</label>
-            <select id="output-type" formArrayName="outputType" (change)="onWriteStrategyChange()">
-                <option *ngFor="let strategy of strategies | keyvalue"
-                        [ngValue]="getWriteStrategy(strategy.value)">
-                    {{ strategy.key }}
-                </option>
-            </select>
-            <label for="output">Output</label>
-            <textarea readonly id="output" type="text" class="h-full" formControlName="output">
-
-            </textarea>
-        </div>
-    </div>
-    <button type="submit" [disabled]="converterForm.invalid">Convert</button>
-</form>
+    <!--        </textarea>-->
+    <!--    </div>-->
+</div>
