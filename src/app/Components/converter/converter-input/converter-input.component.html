@@ -1,13 +1,15 @@
 <div class="flex flex-col w-1/2">
     <label for="input-type">Input type</label>
-    <select id="input-type" [(ngModel)]="readingStrategy">
+    <select id="input-type" [ngModel]="selectedStrategy"
+            (change)="onReadingStrategyChanged(selectedStrategy)">
         <option
             *ngFor="let strategy of readingStrategies | keyvalue"
-            [value]="strategy.value">
+            [ngValue]="strategy.value">
             {{ strategy.key }}
         </option>
     </select>
     <label for="input">Input</label>
-    <textarea id="input" class="h-full" (input)="onInputChanged($event)">
+    <textarea id="input" class="h-full" #inputTextArea
+              (change)="onInputTextChanged(inputTextArea.value)">
     </textarea>
 </div>

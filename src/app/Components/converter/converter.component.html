@@ -1,5 +1,9 @@
 <div class="flex space-x-1 h-full">
-    <app-converter-input (ParsingAttemptCompleted)="onParsingAttemptCompleted($event)"/>
+    <p *ngIf="readObject()"></p>
+    <app-converter-input
+        (inputTextChanged)="onInputTextChanged($event)"
+        (readingStrategyChanged)="onReadingStrategyChanged($event)"
+    />
 
     <!--    <div class="flex flex-col w-1/2">-->
     <!--        <label for="output-type">Output type</label>-->
