@@ -4,7 +4,13 @@ import {ReadingStrategy} from "../Reader";
 export class JsonReadingStrategy implements ReadingStrategy {
     read(str: string): object {
         try {
-            return JSON.parse(str);
+            let object = JSON.parse(str);
+            /// object is not null and is an object so no array or primitives
+            if (object && typeof object === "object") {
+                return object
+            } else {
+                return new SyntaxError("Invalid JSON")
+            }
         } catch (e) {
             if (e instanceof SyntaxError) {
                 return e;
