@@ -23,6 +23,6 @@ export class ConverterOutputComponent {
     @Output() writingStrategyChanged = new EventEmitter<WritingStrategy>();
 
     onWritingStrategyChanged(selectedStrategy: WritingStrategy) {
-
+        this.writingStrategyChanged.emit(selectedStrategy);
     }
 }
