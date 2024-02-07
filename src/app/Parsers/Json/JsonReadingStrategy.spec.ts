@@ -1,5 +1,6 @@
 import {JsonReadingStrategy} from "./JsonStrategy";
 
+/// Reading Strategy tests
 it('should read a basic JSON correctly', () => {
     let json = new JsonReadingStrategy();
     let object = json.read('{"a": 1, "b": 2}');
