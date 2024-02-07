@@ -18,7 +18,7 @@ import {WritingStrategies} from "../../../Parsers/Strategies";
 })
 export class ConverterOutputComponent {
     protected readonly writingStrategies = WritingStrategies;
-    selectedStrategy!: WritingStrategy;
+    selectedStrategy = this.writingStrategies.Json;
     @Input({required: true}) outputText!: string;
     @Output() writingStrategyChanged = new EventEmitter<WritingStrategy>();
 

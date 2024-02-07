@@ -1,4 +1,4 @@
-<div class="flex flex-col w-1/2">
+<div class="flex flex-col h-full">
     <label for="input-type">Input type</label>
     <select id="input-type" [(ngModel)]="selectedStrategy"
             (change)="onReadingStrategyChanged(selectedStrategy)">
@@ -9,7 +9,6 @@
         </option>
     </select>
     <label for="input">Input</label>
-    <textarea id="input" class="h-full" #inputTextArea
-              (input)="onInputTextChanged(inputTextArea.value)">
-    </textarea>
+    <textarea id="input" class="h-full outline outline-1" #inputTextArea
+              (input)="onInputTextChanged(inputTextArea.value)"></textarea>
 </div>

@@ -1,4 +1,4 @@
-<div class="flex flex-col w-1/2">
+<div class="flex flex-col h-full">
     <label for="output-type">Output type</label>
     <select id="output-type" [(ngModel)]="selectedStrategy"
             (change)="onWritingStrategyChanged(selectedStrategy)">
@@ -9,7 +9,5 @@
         </option>
     </select>
     <label for="input">Input</label>
-    <textarea id="input" class="h-full" readonly>
-        {{ outputText }}
-    </textarea>
+    <textarea id="input" class="h-full outline outline-1" readonly>{{ outputText }}</textarea>
 </div>
