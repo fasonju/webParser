@@ -19,7 +19,7 @@ import {WritingStrategies} from "../../../Parsers/Strategies";
 export class ConverterOutputComponent {
     protected readonly writingStrategies = WritingStrategies;
     selectedStrategy!: WritingStrategy;
-    @Input() outputText!: string
+    @Input({required: true}) outputText!: string;
     @Output() writingStrategyChanged = new EventEmitter<WritingStrategy>();
 
     onWritingStrategyChanged(selectedStrategy: WritingStrategy) {

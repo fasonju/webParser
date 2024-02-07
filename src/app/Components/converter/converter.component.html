@@ -4,5 +4,7 @@
         (inputTextChanged)="onInputTextChanged($event)"
         (readingStrategyChanged)="onReadingStrategyChanged($event)"
     />
-
+    <app-converter-output
+        [outputText]="outputText()"
+        (writingStrategyChanged)="onWritingStrategyChanged($event)"/>
 </div>

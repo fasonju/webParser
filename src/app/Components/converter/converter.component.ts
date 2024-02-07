@@ -5,6 +5,7 @@ import {ConverterInputComponent} from "./converter-input/converter-input.compone
 import {ReadingStrategies, WritingStrategies} from "../../Parsers/Strategies";
 import {ReadingStrategy} from "../../Parsers/Reader";
 import {WritingStrategy} from "../../Parsers/Writer";
+import {ConverterOutputComponent} from "./converter-output/converter-output.component";
 
 @Component({
     selector: 'app-converter',
@@ -13,7 +14,8 @@ import {WritingStrategy} from "../../Parsers/Writer";
         ReactiveFormsModule,
         NgForOf,
         KeyValuePipe,
-        ConverterInputComponent
+        ConverterInputComponent,
+        ConverterOutputComponent
     ],
     templateUrl: './converter.component.html',
     styleUrl: './converter.component.css'
