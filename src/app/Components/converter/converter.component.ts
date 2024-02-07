@@ -32,20 +32,18 @@ export class ConverterComponent {
     })
 
     private computeOutputString() {
-        switch (this.readObject()) {
-            case SyntaxError:
-                return "Invalid input"
-            default:
-                try {
-                    return this.writingStrategy().parse(this.readObject())
-                } catch (e) {
-                    if (e instanceof SyntaxError) {
-                        return "Invalid input"
-                    } else {
-                        return "Unknown error"
-                    }
-                }
+        try {
+            return this.readObject() instanceof SyntaxError ?
+                "Invalid input" :
+                this.writingStrategy().parse(this.readObject() as object)
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                return e.message
+            } else {
+                return "Unknown error"
+            }
         }
+
     }
 
     private computeInputObject() {

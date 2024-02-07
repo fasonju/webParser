@@ -10,6 +10,6 @@
     </select>
     <label for="input">Input</label>
     <textarea id="input" class="h-full" #inputTextArea
-              (change)="onInputTextChanged(inputTextArea.value)">
+              (input)="onInputTextChanged(inputTextArea.value)">
     </textarea>
 </div>
